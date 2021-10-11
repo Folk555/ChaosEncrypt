@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="794.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chaoticencoder.Controller">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="14.0" prefHeight="67.0" prefWidth="187.0">
+         <children>
+            <Button fx:id="chooseImg" mnemonicParsing="false" onAction="#onChooseImgClick" text="Выбрать изображение" />
+            <Label fx:id="chosenImgLabel" prefHeight="17.0" prefWidth="141.0" />
+         </children>
+      </VBox>
+      <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="81.0" prefHeight="433.0" prefWidth="1200.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Оригинал">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="imgOrig" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Криптограмма">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="imgCrypt" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Дешифровка">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="imgDeCrypt" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
