@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ChaosEncrypt" />
+        <module name="Chaotic encoder" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ChaosEncrypt" target="17" />
+      <module name="Chaotic encoder" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>

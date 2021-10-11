@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/ChaosEncrypt.iml" filepath="$PROJECT_DIR$/.idea/ChaosEncrypt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Chaotic encoder.iml" filepath="$PROJECT_DIR$/Chaotic encoder.iml" />
     </modules>
   </component>
 </project>
