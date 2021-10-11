@@ -23,8 +23,7 @@ public class Main extends Application {
 
         stage.setScene(scene);
         stage.show();
-        System.out.println();
-        //sdfkhglsdjkghlskjd
+
     }
 
     public static void main(String[] args) {
