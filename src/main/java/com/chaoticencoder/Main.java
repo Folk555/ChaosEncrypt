@@ -22,7 +22,7 @@ public class Main extends Application {
         stage.getIcons().add(image);
 
         stage.setScene(scene);
-        stage.show();//elkgbn
+        stage.show();
 
     }
 
