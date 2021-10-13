@@ -17,8 +17,12 @@ import javafx.embed.swing.SwingFXUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.awt.*;
 
 public class Controller {
+
+    ChaoticEncDecImg myChaoticEncDecImg;
+
     @FXML
     private Button chooseImg;
 
@@ -26,13 +30,22 @@ public class Controller {
     private Label chosenImgLabel;
 
     @FXML
-    private ImageView imgCrypt;
+    private ImageView imgCryptView;
 
     @FXML
-    private ImageView imgDeCrypt;
+    private ImageView imgDeCryptView;
 
     @FXML
-    private ImageView imgOrig;
+    private ImageView imgOrigView;
+
+    @FXML
+    private Button analysisBtn;
+
+    @FXML
+    private Button decryptionBtn;
+
+    @FXML
+    private Button encryptBtn;
 
     @FXML
     private void onChooseImgClick(ActionEvent event) throws Exception {
@@ -41,11 +54,55 @@ public class Controller {
         File selectedFile = myFileChooser.showOpenDialog(fileChooserStage);
         if (selectedFile == null) return; //в случае если нажали "Отмена" при выборе файла
         BufferedImage img = ImageIO.read(selectedFile);
-        imgOrig.setImage(SwingFXUtils.toFXImage(img, null ));
+
+        myChaoticEncDecImg =
+                new ChaoticEncDecImg.ChaoticEncDecImgBuilder()
+                        .withImage( img )
+                        .build();
+        imgOrigView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.origImg, null ));
         chosenImgLabel.setText(selectedFile.getPath());
+
+        decryptionBtn.setDisable(false);
+        encryptBtn.setDisable(false);
+    }
+
+    @FXML
+    void onAnalysisBtnClick(ActionEvent event) {
+        //if ((imgCrypt.getImage() == null) || (imgDeCrypt.getImage() == null)) return; Будет отдельная сцена для анализа. Там будет выбор анализ по одному изображению или сравнение по 2ум
+    }
+
+    @FXML
+    void onEncryptBtnClick(ActionEvent event) {
+        myChaoticEncDecImg.encrypt();
+        imgCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.cryptImg, null ));
+        /*int color = myChaoticEncDecImg.origImg.getRGB(0,0);
+        int blue = color & 0xff;
+        int green = (color & 0xff00) >> 8;
+        int red = (color & 0xff0000) >> 16;
+        System.out.println(blue+" "+green+" "+red);
+         color = myChaoticEncDecImg.origImg.getRGB(0,511);
+         blue = color & 0xff;
+         green = (color & 0xff00) >> 8;
+         red = (color & 0xff0000) >> 16;
+        System.out.println(blue+" "+green+" "+red);
+        color = myChaoticEncDecImg.origImg.getRGB(511,0);
+        blue = color & 0xff;
+        green = (color & 0xff00) >> 8;
+        red = (color & 0xff0000) >> 16;
+        System.out.println(blue+" "+green+" "+red);
+        color = myChaoticEncDecImg.origImg.getRGB(511,511);
+        blue = color & 0xff;
+        green = (color & 0xff00) >> 8;
+        red = (color & 0xff0000) >> 16;
+        System.out.println(blue+" "+green+" "+red);*/
+
 
 
     }
 
+    @FXML
+    void onDecryptionBtnClick(ActionEvent event) {
+
+    }
 
 }

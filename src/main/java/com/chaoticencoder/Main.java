@@ -21,6 +21,8 @@ public class Main extends Application {
         Image image = new Image(iconStream);
         stage.getIcons().add(image);
 
+        //System.out.println(-513 % -10);
+
         stage.setScene(scene);
         stage.show();
 

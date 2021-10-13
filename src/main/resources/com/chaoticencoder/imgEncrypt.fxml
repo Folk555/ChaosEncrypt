@@ -25,7 +25,7 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imgOrig" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imgOrigView" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
@@ -35,7 +35,7 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imgCrypt" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imgCryptView" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
@@ -45,10 +45,17 @@
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="imgDeCrypt" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imgDeCryptView" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </VBox>
          </children>
       </HBox>
+      <VBox alignment="TOP_CENTER" layoutX="237.0" layoutY="8.0" prefHeight="67.0" prefWidth="181.0">
+         <children>
+            <Button fx:id="encryptBtn" alignment="TOP_CENTER" disable="true" mnemonicParsing="false" onAction="#onEncryptBtnClick" text="Шифровать" />
+            <Button fx:id="decryptionBtn" disable="true" mnemonicParsing="false" onAction="#onDecryptionBtnClick" text="Дешифровать" />
+         </children>
+      </VBox>
+      <Button fx:id="analysisBtn" disable="true" layoutX="541.0" layoutY="611.0" mnemonicParsing="false" onAction="#onAnalysisBtnClick" text="Анализ" />
    </children>
 </AnchorPane>
