@@ -21,7 +21,7 @@ import java.awt.*;
 
 public class Controller {
 
-    ChaoticEncDecImg myChaoticEncDecImg;
+    static ChaoticEncDecImg myChaoticEncDecImg;
 
     @FXML
     private Button chooseImg;
@@ -73,14 +73,22 @@ public class Controller {
 
     @FXML
     void onEncryptBtnClick(ActionEvent event) {
+        myChaoticEncDecImg.cryptImg = new BufferedImage(myChaoticEncDecImg.origImg.getColorModel(),
+                myChaoticEncDecImg.origImg.copyData(null), myChaoticEncDecImg.origImg.getColorModel().isAlphaPremultiplied(), null);
+
+        //System.out.println("  cryptImg: "+(myChaoticEncDecImg.origImg.getRGB(19,13)& 0xff)+"  origImg: "+(myChaoticEncDecImg.origImg.getRGB(19,13)& 0xff));
+
         myChaoticEncDecImg.encrypt();
         imgCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.cryptImg, null ));
+        imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.deCryptImg, null ));
+
+
         /*int color = myChaoticEncDecImg.origImg.getRGB(0,0);
         int blue = color & 0xff;
         int green = (color & 0xff00) >> 8;
         int red = (color & 0xff0000) >> 16;
         System.out.println(blue+" "+green+" "+red);
-         color = myChaoticEncDecImg.origImg.getRGB(0,511);
+         color = myChaoticEncDecImg.origImg.getRGB(100,0);
          blue = color & 0xff;
          green = (color & 0xff00) >> 8;
          red = (color & 0xff0000) >> 16;
@@ -95,14 +103,63 @@ public class Controller {
         green = (color & 0xff00) >> 8;
         red = (color & 0xff0000) >> 16;
         System.out.println(blue+" "+green+" "+red);*/
-
-
-
     }
 
     @FXML
     void onDecryptionBtnClick(ActionEvent event) {
 
+        myChaoticEncDecImg.decrypt();
+        imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.deCryptImg, null ));
+
+        for (int i=myChaoticEncDecImg.sz_imgX-1; i>=0; --i) {
+            for (int j=myChaoticEncDecImg.sz_imgY-1; j>=0; --j) {
+
+                if (Math.abs((myChaoticEncDecImg.deCryptImg.getRGB(i,j) & 0xff) - ((myChaoticEncDecImg.origImg.getRGB(i,j) & 0xff)))>0)
+                    System.out.println("i: "+i+"  j: "+j+"  дешифр: "+ (myChaoticEncDecImg.deCryptImg.getRGB(i,j) & 0xff)+"  оригин: "+(myChaoticEncDecImg.origImg.getRGB(i,j) & 0xff));
+            }
+        }
+    }
+
+    public void selectDefaultImg(){
+        File selectedImgDefault = new File("M:\\статья\\прога\\1024.jpg");
+        if (selectedImgDefault == null) return; //в случае если файла не существует
+        BufferedImage img = null;
+        try {
+            img = ImageIO.read(selectedImgDefault);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        myChaoticEncDecImg =
+                new ChaoticEncDecImg.ChaoticEncDecImgBuilder()
+                        .withImage( img )
+                        .build();
+        imgOrigView.setImage(SwingFXUtils.toFXImage(Controller.myChaoticEncDecImg.origImg, null ));
+        chosenImgLabel.setText(selectedImgDefault.getPath());
+
+        decryptionBtn.setDisable(false);
+        encryptBtn.setDisable(false);
+    }
+
+    @FXML
+    void initialize() {
+        assert analysisBtn != null : "fx:id=\"analysisBtn\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
+        assert chooseImg != null : "fx:id=\"chooseImg\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
+        assert chosenImgLabel != null : "fx:id=\"chosenImgLabel\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
+        assert decryptionBtn != null : "fx:id=\"decryptionBtn\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
+        assert encryptBtn != null : "fx:id=\"encryptBtn\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
+        assert imgCryptView != null : "fx:id=\"imgCryptView\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
+        assert imgDeCryptView != null : "fx:id=\"imgDeCryptView\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
+        assert imgOrigView != null : "fx:id=\"imgOrigView\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
+        selectDefaultImg(); //чтоб не выбирать изображение каждый раз при запуске проги
+        imgOrigView.setPickOnBounds(true);
+        imgDeCryptView.setPickOnBounds(true);
+        imgOrigView.setOnMouseClicked(e -> {
+            System.out.println("["+e.getX()+", "+e.getY()+"]");
+        });
+        imgDeCryptView.setOnMouseClicked(e -> {
+            System.out.println("["+e.getX()+", "+e.getY()+"]");
+        });
     }
 
 }
