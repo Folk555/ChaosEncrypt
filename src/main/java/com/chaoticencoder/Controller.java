@@ -82,27 +82,6 @@ public class Controller {
         imgCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.cryptImg, null ));
         imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.deCryptImg, null ));
 
-
-        /*int color = myChaoticEncDecImg.origImg.getRGB(0,0);
-        int blue = color & 0xff;
-        int green = (color & 0xff00) >> 8;
-        int red = (color & 0xff0000) >> 16;
-        System.out.println(blue+" "+green+" "+red);
-         color = myChaoticEncDecImg.origImg.getRGB(100,0);
-         blue = color & 0xff;
-         green = (color & 0xff00) >> 8;
-         red = (color & 0xff0000) >> 16;
-        System.out.println(blue+" "+green+" "+red);
-        color = myChaoticEncDecImg.origImg.getRGB(511,0);
-        blue = color & 0xff;
-        green = (color & 0xff00) >> 8;
-        red = (color & 0xff0000) >> 16;
-        System.out.println(blue+" "+green+" "+red);
-        color = myChaoticEncDecImg.origImg.getRGB(511,511);
-        blue = color & 0xff;
-        green = (color & 0xff00) >> 8;
-        red = (color & 0xff0000) >> 16;
-        System.out.println(blue+" "+green+" "+red);*/
     }
 
     @FXML
@@ -122,12 +101,13 @@ public class Controller {
 
     public void selectDefaultImg(){
         File selectedImgDefault = new File("M:\\статья\\прога\\1024.jpg");
-        if (selectedImgDefault == null) return; //в случае если файла не существует
+         //в случае если файла не существует
         BufferedImage img = null;
         try {
-            img = ImageIO.read(selectedImgDefault);
+            img = ImageIO.read(selectedImgDefault); //в случае если файла не существует
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Изображение \"по умолчанию\" не существует");
+            return;
         }
 
         myChaoticEncDecImg =
@@ -152,14 +132,6 @@ public class Controller {
         assert imgDeCryptView != null : "fx:id=\"imgDeCryptView\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
         assert imgOrigView != null : "fx:id=\"imgOrigView\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
         selectDefaultImg(); //чтоб не выбирать изображение каждый раз при запуске проги
-        imgOrigView.setPickOnBounds(true);
-        imgDeCryptView.setPickOnBounds(true);
-        imgOrigView.setOnMouseClicked(e -> {
-            System.out.println("["+e.getX()+", "+e.getY()+"]");
-        });
-        imgDeCryptView.setOnMouseClicked(e -> {
-            System.out.println("["+e.getX()+", "+e.getY()+"]");
-        });
     }
 
 }

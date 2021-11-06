@@ -43,7 +43,7 @@ public class Main extends Application {
         else nn = (sz_imgX + (nn % -sz_imgX));
         System.out.println( nn);*/
 
-        System.out.println( 543 % 255);
+        //System.out.println( -257 % 255);
         //System.out.println((255 - (-5 % -255)) % 255);
 
 

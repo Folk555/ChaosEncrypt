@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="794.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chaoticencoder.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="607.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chaoticencoder.Controller">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="14.0" prefHeight="67.0" prefWidth="187.0">
          <children>
@@ -60,6 +60,6 @@
             <Button fx:id="decryptionBtn" disable="true" mnemonicParsing="false" onAction="#onDecryptionBtnClick" text="Дешифровать" />
          </children>
       </VBox>
-      <Button fx:id="analysisBtn" disable="true" layoutX="541.0" layoutY="611.0" mnemonicParsing="false" onAction="#onAnalysisBtnClick" text="Анализ" />
+      <Button fx:id="analysisBtn" disable="true" layoutX="582.0" layoutY="534.0" mnemonicParsing="false" onAction="#onAnalysisBtnClick" text="Анализ" />
    </children>
 </AnchorPane>

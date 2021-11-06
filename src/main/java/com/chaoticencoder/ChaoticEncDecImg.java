@@ -9,16 +9,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class ChaoticEncDecImg {
+public class  ChaoticEncDecImg {
     public BufferedImage origImg, cryptImg, deCryptImg;
     public int randseed, sz_imgX, sz_imgY, gen, upr;
     ArrayList<Number> key;
+    //Если пиксель не надо отслеживать вводим отрицательные(несуществующие координаты).
+    int fromX=-11, fromY=-11; // задаем пиксель который надо отследить.
 
     private ChaoticEncDecImg(){}
 
     static public class ChaoticEncDecImgBuilder{
         private BufferedImage origImg, cryptImg, deCryptImg;
-        private int randseed=111, sz_imgX=32, sz_imgY=32, gen=1, upr=0;
+        private int randseed=111, sz_imgX=512, sz_imgY=512, gen=1, upr=0;
         ArrayList<Number> key;
 
         public ChaoticEncDecImgBuilder withImage(BufferedImage origImg){
@@ -162,92 +164,42 @@ public class ChaoticEncDecImg {
 
     public void encrypt(){
 
-        int fromX=23, fromY=12;
-
-
         for (int g=0; g<gen; ++g) {
             System.out.println("шифрование итерация: " + g);
             for (int i=0; i<sz_imgX; ++i) {
                 for (int j=0; j<sz_imgY; ++j) {
                     ArrayList<Number> xyz = nextResler(new ArrayList<>(Arrays.asList(i,j,key.get(g*sz_imgX*sz_imgY+sz_imgX*i+j))));
-                    //System.out.println("i: "+i+" j: "+j);
-  /*                  if (i==0 && j==0){
-                        int inc=0;
-                        for (int k=0; k<=255; ++k) {
-                            int grayd = k;
-                            Color pixeld = new Color(grayd, grayd, grayd);
-                            //System.out.println("значение pixeled " + pixeld.getRGB());
-                            cryptImg.setRGB(i, j, pixeld.getRGB());
-                            if ((cryptImg.getRGB(i, j) & 0xff) != k) {
-                                inc+=1;
-                                System.out.println("Всего " + inc + "   k= " + k + "   значение pixeled " + pixeld.getRGB() + "   пиксель " + (cryptImg.getRGB(i, j) & 0xff));
-                            }
-                            }
-                        }*/
 
-
-
-                    if (i==-13 && j==17)
-                        System.out.println("13 17");
                     int x = norm((int)Math.round(xyz.get(0).doubleValue()),'x');
                     int y = norm((int)Math.round(xyz.get(1).doubleValue()),'y');
                     int z = norm((int)Math.floor(xyz.get(2).doubleValue()),'z');
 
-                    //System.out.println("x: "+x+"  y: "+y+"  z: "+z);
-
-                    int for_del = (cryptImg.getRGB(i,j) & 0xff);
-                    //if (i==17 && j==6) continue;
-                    //if (i==13 && j==18) continue;
-
                     //swap - меняем местами + шум
-                    int newGrayPixel;
-                    if (((cryptImg.getRGB(i,j) & 0xff) == 255) && (z>=0))
-                        newGrayPixel = (cryptImg.getRGB(i,j) & 0xff) + z-1;
-                    else
-                        newGrayPixel = (cryptImg.getRGB(i,j) & 0xff) + z;
-                    int gray = norm(newGrayPixel,'z');
-                    Color pixel = new Color(gray, gray, gray);
+                    int newGrayPixel = norm((cryptImg.getRGB(i,j) & 0xff) ^ z,'z');
+                    Color pixel = new Color(newGrayPixel, newGrayPixel, newGrayPixel);
                     cryptImg.setRGB(i,j, cryptImg.getRGB(x,y));
                     cryptImg.setRGB(x,y, pixel.getRGB());
 
-
-
-                    //if (i==13 && j==18) { System.out.println(cryptImg.getRGB(i,j) & 0xff);}
-                    //System.out.println(cryptImg.getRGB(13,18) & 0xff);
-
-                    //if (i==17 && j==6) System.out.println("ReslerX: "+xyz.get(0).doubleValue()+" ReslerY: "+xyz.get(1).doubleValue()+" ReslerZ: "+xyz.get(2).doubleValue()+" x: "+x+" y: "+y+" z: "+z);
-
+                    //внештатный механизм отслеживания пикселя
                     if (i==fromX && j==fromY){
                         fromX=x;
                         fromY=y;
-                        System.out.println("ReslerZ: "+xyz.get(2).doubleValue()+"  normZ: "+z+"  пиксель: "+(for_del)+" ушел из "+i+" "+j+" в позицию "+x+" "+y+" изменен на "+gray);
-                        //System.out.println(cryptImg.getRGB(13,18) & 0xff);
+                        System.out.println("ReslerZ: "+xyz.get(2).doubleValue()+"  normZ: "+z+"  пиксель: "+ norm(((cryptImg.getRGB(x,y) & 0xff) ^ z), 'z')+" ушел из "+i+" "+j+" в позицию "+x+" "+y+" изменен на "+newGrayPixel);
                         continue;
                     }
                     if (x==fromX && y==fromY) {
                         fromX=i;
                         fromY=j;
                         System.out.println("ReslerZ: "+xyz.get(2).doubleValue()+"  normZ: "+z+"  пиксель: "+(cryptImg.getRGB(i,j) & 0xff)+" ушел из "+x+" "+y+" в позицию "+i+" "+j);
-                        //if ((fromX<targetX) || ((fromX==targetX) && (fromY<targetY))) backaway();
                     }
-
-                    //if (i==19 && j==13) {System.out.println("xyzz: "+xyz.get(2).doubleValue()+"  z: "+z+"  cryptImg: "+gray+"  origImg: "+(origImg.getRGB(i,j)& 0xff));}
-
-
-
                 }
             }
         }
         deCryptImg = new BufferedImage(cryptImg.getColorModel(),
                 cryptImg.copyData(null), cryptImg.getColorModel().isAlphaPremultiplied(), null);
-
     }
 
     public void decrypt(){
-
-        int fromX=24, fromY=5;
-
-
 
         for (int g=gen-1; g>=0; --g) {
             System.out.println("дешифрование итерация: " + g);
@@ -256,36 +208,17 @@ public class ChaoticEncDecImg {
 
                     ArrayList<Number> xyz = nextResler(new ArrayList<>(Arrays.asList(i,j,key.get(g*sz_imgX*sz_imgY+sz_imgX*i+j))));
 
-                    //System.out.println(deCryptImg.getRGB(18,25) & 0xff);
-                    if (i==24 && j==5)
-                        System.out.println(deCryptImg.getRGB(i,j) & 0xff);
-
-                    //System.out.println("i "+i+" j "+j+" пиксель 24 5 "+(deCryptImg.getRGB(24,5) & 0xff));
                     int x = norm((int)Math.round(xyz.get(0).doubleValue()),'x');
                     int y = norm((int)Math.round(xyz.get(1).doubleValue()),'y');
                     int z = norm((int)Math.floor(xyz.get(2).doubleValue()),'z');
-                    //System.out.println("x: "+x+"  y: "+y);
-
-
-                    int for_del = (deCryptImg.getRGB(x,y) & 0xff);
-
 
                     //swap - меняем местами
-                    int gray = (deCryptImg.getRGB(i,j) & 0xff);
+                    int gray = norm((deCryptImg.getRGB(x,y) & 0xff) ^ z,'z');
                     Color pixel = new Color(gray, gray, gray);
-                    deCryptImg.setRGB(i,j, deCryptImg.getRGB(x,y));
-                    deCryptImg.setRGB(x,y, pixel.getRGB());
-                    // убираем шум
-                    gray = norm((deCryptImg.getRGB(i,j) & 0xff) - z,'z');
-                    pixel = new Color(gray, gray, gray);
+                    deCryptImg.setRGB(x,y, deCryptImg.getRGB(i,j));
                     deCryptImg.setRGB(i,j, pixel.getRGB());
 
-
-
-
-
-
-
+                    //внештатный механизм отслеживания пикселя
                     if (i==fromX && j==fromY){
                         fromX=x;
                         fromY=y;
@@ -295,15 +228,10 @@ public class ChaoticEncDecImg {
                     if (x==fromX && y==fromY) {
                         fromX=i;
                         fromY=j;
-                        System.out.println("ReslerZ: "+xyz.get(2).doubleValue()+"  normZ: "+z+"  пиксель: "+(for_del)+" ушел из "+x+" "+y+" в позицию "+i+" "+j+" изменен на "+gray);
-                        //if ((fromX<targetX) || ((fromX==targetX) && (fromY<targetY))) backaway();
+                        System.out.println("ReslerZ: "+xyz.get(2).doubleValue()+"  normZ: "+z+"  пиксель: "+norm((deCryptImg.getRGB(i,j) & 0xff) ^ z,'z')+" ушел из "+x+" "+y+" в позицию "+i+" "+j+" изменен на "+gray);
                     }
                 }
             }
         }
     }
-
-    private void backaway(){
-
-    };
 }
