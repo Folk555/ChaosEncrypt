@@ -11,8 +11,9 @@ import java.util.Random;
 
 public class  ChaoticEncDecImg {
     public BufferedImage origImg, cryptImg, deCryptImg;
-    public int randseed, sz_imgX, sz_imgY, gen, upr;
-    ArrayList<Number> key;
+    public int randseed, sz_imgX, sz_imgY, upr;
+    private int gen;
+    private ArrayList<Number> key;
     //Если пиксель не надо отслеживать вводим отрицательные(несуществующие координаты).
     int fromX=-11, fromY=-11; // задаем пиксель который надо отследить.
 
@@ -20,7 +21,7 @@ public class  ChaoticEncDecImg {
 
     static public class ChaoticEncDecImgBuilder{
         private BufferedImage origImg, cryptImg, deCryptImg;
-        private int randseed=111, sz_imgX=512, sz_imgY=512, gen=1, upr=0;
+        private int randseed=111, sz_imgX=512, sz_imgY=512, gen=0, upr=0;
         ArrayList<Number> key;
 
         public ChaoticEncDecImgBuilder withImage(BufferedImage origImg){
@@ -166,6 +167,8 @@ public class  ChaoticEncDecImg {
 
         for (int g=0; g<gen; ++g) {
             System.out.println("шифрование итерация: " + g);
+            if (g==1)
+                g=1;
             for (int i=0; i<sz_imgX; ++i) {
                 for (int j=0; j<sz_imgY; ++j) {
                     ArrayList<Number> xyz = nextResler(new ArrayList<>(Arrays.asList(i,j,key.get(g*sz_imgX*sz_imgY+sz_imgX*i+j))));
@@ -232,6 +235,14 @@ public class  ChaoticEncDecImg {
                     }
                 }
             }
+        }
+    }
+    public void setNewGen(int gen){
+        this.gen = gen;
+        key = new ArrayList<>(gen*sz_imgX*sz_imgY);
+        Random generator = new Random(randseed);
+        for (int i = 0; i < gen*sz_imgX*sz_imgY; i++) {
+            key.add(generator.nextDouble() * 10);
         }
     }
 }

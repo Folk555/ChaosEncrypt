@@ -1,11 +1,12 @@
 package com.chaoticencoder;
 
-import java.awt.*;
+//import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.TextArea;
 
 public class ControllerAnalysisWindow {
 
@@ -50,8 +51,24 @@ public class ControllerAnalysisWindow {
         BarCharRight.getData().add(dsCrypt);
 
         //сравнительные характеристики
-        comparisonTA.append("NPCR: ");
-        //comparisonTA.append("NPCR: "+Double.toString(CryptAnalysis.UACI(myChaoticEncDecImg.origImg, myChaoticEncDecImg.cryptImg)));
+        comparisonTA.appendText("NPCR: "+CryptAnalysis.NPCR(myChaoticEncDecImg.origImg, myChaoticEncDecImg.cryptImg));
+        comparisonTA.appendText("\nUACI: "+CryptAnalysis.UACI(myChaoticEncDecImg.origImg, myChaoticEncDecImg.cryptImg));
+
+        //характеристики оригинала
+        origTA.appendText("Энтропия: "+CryptAnalysis.entropy(myChaoticEncDecImg.origImg));
+        origTA.appendText("\nКорреляция");
+        origTA.appendText("\n   по горизонтале: "+CryptAnalysis.correlation(myChaoticEncDecImg.origImg)[0]);
+        origTA.appendText("\n   по вертикале: "+CryptAnalysis.correlation(myChaoticEncDecImg.origImg)[1]);
+        origTA.appendText("\n   по диагонале: "+CryptAnalysis.correlation(myChaoticEncDecImg.origImg)[2]);
+
+        //характеристики оригинала
+        cryptTA.appendText("Энтропия: "+CryptAnalysis.entropy(myChaoticEncDecImg.cryptImg));
+        cryptTA.appendText("\nКорреляция");
+        cryptTA.appendText("\n   по горизонтале: "+CryptAnalysis.correlation(myChaoticEncDecImg.cryptImg)[0]);
+        cryptTA.appendText("\n   по вертикале: "+CryptAnalysis.correlation(myChaoticEncDecImg.cryptImg)[1]);
+        cryptTA.appendText("\n   по диагонале: "+CryptAnalysis.correlation(myChaoticEncDecImg.cryptImg)[2]);
+
+
     }
 
 }

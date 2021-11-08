@@ -3,6 +3,7 @@
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -54,12 +55,14 @@
             </VBox>
          </children>
       </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="237.0" layoutY="8.0" prefHeight="67.0" prefWidth="181.0">
+      <VBox alignment="TOP_CENTER" layoutX="226.0" layoutY="14.0" prefHeight="67.0" prefWidth="181.0">
          <children>
             <Button fx:id="encryptBtn" alignment="TOP_CENTER" disable="true" mnemonicParsing="false" onAction="#onEncryptBtnClick" text="Шифровать + дешифровать" />
             <Button fx:id="decryptionBtn" disable="true" mnemonicParsing="false" onAction="#onDecryptionBtnClick" text="Дешифровать" />
          </children>
       </VBox>
       <Button fx:id="analysisBtn" disable="true" layoutX="582.0" layoutY="534.0" mnemonicParsing="false" onAction="#onAnalysisBtnClick" text="Анализ" />
+      <TextField fx:id="generationCount" layoutX="1051.0" layoutY="48.0" text="1" />
+      <Label layoutX="1051.0" layoutY="24.0" text="Количество итераций:" />
    </children>
 </AnchorPane>

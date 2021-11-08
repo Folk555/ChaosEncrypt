@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -50,6 +51,9 @@ public class ControllerCryptGrayImg {
     private Button encryptBtn;
 
     @FXML
+    private TextField generationCount;
+
+    @FXML
     private void onChooseImgClick(ActionEvent event) throws Exception {
         FileChooser myFileChooser = new FileChooser();
         Stage fileChooserStage = new Stage();
@@ -80,9 +84,6 @@ public class ControllerCryptGrayImg {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();
-
-
-
     }
 
     @FXML
@@ -102,6 +103,7 @@ public class ControllerCryptGrayImg {
 
     @FXML
     void onEncryptBtnClick(ActionEvent event) {
+        myChaoticEncDecImg.setNewGen(Integer.parseInt(generationCount.getText()));
         myChaoticEncDecImg.cryptImg = new BufferedImage(myChaoticEncDecImg.origImg.getColorModel(),
                 myChaoticEncDecImg.origImg.copyData(null), myChaoticEncDecImg.origImg.getColorModel().isAlphaPremultiplied(), null);
 
