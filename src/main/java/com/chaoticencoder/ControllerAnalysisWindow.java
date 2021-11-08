@@ -1,5 +1,6 @@
 package com.chaoticencoder;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -23,23 +24,34 @@ public class ControllerAnalysisWindow {
     private BarChart<?, ?> BarCharRight;
 
     @FXML
+    private TextArea comparisonTA;
+
+    @FXML
+    private TextArea cryptTA;
+
+    @FXML
+    private TextArea origTA;
+
+    @FXML
     void initialize() {
         assert BarCharLeft != null : "fx:id=\"BarCharLeft\" was not injected: check your FXML file 'analysisWindow.fxml'.";
         assert BarCharRight != null : "fx:id=\"BarCharRight\" was not injected: check your FXML file 'analysisWindow.fxml'.";
 
-
+        //Гистограмма
         int[] invariantOrig = CryptAnalysis.invariant(myChaoticEncDecImg.origImg);
         int[] invariantCrypt = CryptAnalysis.invariant(myChaoticEncDecImg.cryptImg);
         XYChart.Series dsOrig = new XYChart.Series();
         XYChart.Series dsCrypt = new XYChart.Series();
-
-
         for (int i = 0; i < invariantOrig.length; i++) {
             dsOrig.getData().add(new XYChart.Data(Integer.toString(i), invariantOrig[i]));
             dsCrypt.getData().add(new XYChart.Data(Integer.toString(i), invariantCrypt[i]));
         }
         BarCharLeft.getData().add(dsOrig);
         BarCharRight.getData().add(dsCrypt);
+
+        //сравнительные характеристики
+        comparisonTA.append("NPCR: ");
+        //comparisonTA.append("NPCR: "+Double.toString(CryptAnalysis.UACI(myChaoticEncDecImg.origImg, myChaoticEncDecImg.cryptImg)));
     }
 
 }
