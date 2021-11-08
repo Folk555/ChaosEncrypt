@@ -2,10 +2,12 @@ package com.chaoticencoder;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -17,9 +19,9 @@ import javafx.embed.swing.SwingFXUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.awt.*;
+import java.io.InputStream;
 
-public class Controller {
+public class ControllerCryptGrayImg {
 
     static ChaoticEncDecImg myChaoticEncDecImg;
 
@@ -68,19 +70,18 @@ public class Controller {
 
     @FXML
     void onAnalysisBtnClick(ActionEvent event) {
-        //if ((imgCrypt.getImage() == null) || (imgDeCrypt.getImage() == null)) return; Будет отдельная сцена для анализа. Там будет выбор анализ по одному изображению или сравнение по 2ум
-    }
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("analysisWindow.fxml"));
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Parent root = fxmlLoader.getRoot();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
 
-    @FXML
-    void onEncryptBtnClick(ActionEvent event) {
-        myChaoticEncDecImg.cryptImg = new BufferedImage(myChaoticEncDecImg.origImg.getColorModel(),
-                myChaoticEncDecImg.origImg.copyData(null), myChaoticEncDecImg.origImg.getColorModel().isAlphaPremultiplied(), null);
 
-        //System.out.println("  cryptImg: "+(myChaoticEncDecImg.origImg.getRGB(19,13)& 0xff)+"  origImg: "+(myChaoticEncDecImg.origImg.getRGB(19,13)& 0xff));
-
-        myChaoticEncDecImg.encrypt();
-        imgCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.cryptImg, null ));
-        imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.deCryptImg, null ));
 
     }
 
@@ -99,6 +100,20 @@ public class Controller {
         }
     }
 
+    @FXML
+    void onEncryptBtnClick(ActionEvent event) {
+        myChaoticEncDecImg.cryptImg = new BufferedImage(myChaoticEncDecImg.origImg.getColorModel(),
+                myChaoticEncDecImg.origImg.copyData(null), myChaoticEncDecImg.origImg.getColorModel().isAlphaPremultiplied(), null);
+
+        //System.out.println("  cryptImg: "+(myChaoticEncDecImg.origImg.getRGB(19,13)& 0xff)+"  origImg: "+(myChaoticEncDecImg.origImg.getRGB(19,13)& 0xff));
+
+        myChaoticEncDecImg.encrypt();
+        imgCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.cryptImg, null ));
+        imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.deCryptImg, null ));
+        onDecryptionBtnClick(new ActionEvent());
+        analysisBtn.setDisable(false);
+    }
+
     public void selectDefaultImg(){
         File selectedImgDefault = new File("M:\\статья\\прога\\1024.jpg");
          //в случае если файла не существует
@@ -114,7 +129,7 @@ public class Controller {
                 new ChaoticEncDecImg.ChaoticEncDecImgBuilder()
                         .withImage( img )
                         .build();
-        imgOrigView.setImage(SwingFXUtils.toFXImage(Controller.myChaoticEncDecImg.origImg, null ));
+        imgOrigView.setImage(SwingFXUtils.toFXImage(ControllerCryptGrayImg.myChaoticEncDecImg.origImg, null ));
         chosenImgLabel.setText(selectedImgDefault.getPath());
 
         decryptionBtn.setDisable(false);
@@ -123,14 +138,14 @@ public class Controller {
 
     @FXML
     void initialize() {
-        assert analysisBtn != null : "fx:id=\"analysisBtn\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
-        assert chooseImg != null : "fx:id=\"chooseImg\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
-        assert chosenImgLabel != null : "fx:id=\"chosenImgLabel\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
-        assert decryptionBtn != null : "fx:id=\"decryptionBtn\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
-        assert encryptBtn != null : "fx:id=\"encryptBtn\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
-        assert imgCryptView != null : "fx:id=\"imgCryptView\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
-        assert imgDeCryptView != null : "fx:id=\"imgDeCryptView\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
-        assert imgOrigView != null : "fx:id=\"imgOrigView\" was not injected: check your FXML file 'imgEncrypt.fxml'.";
+        assert analysisBtn != null : "fx:id=\"analysisBtn\" was not injected: check your FXML file 'cryptGrayImg.fxml'.";
+        assert chooseImg != null : "fx:id=\"chooseImg\" was not injected: check your FXML file 'cryptGrayImg.fxml'.";
+        assert chosenImgLabel != null : "fx:id=\"chosenImgLabel\" was not injected: check your FXML file 'cryptGrayImg.fxml'.";
+        assert decryptionBtn != null : "fx:id=\"decryptionBtn\" was not injected: check your FXML file 'cryptGrayImg.fxml'.";
+        assert encryptBtn != null : "fx:id=\"encryptBtn\" was not injected: check your FXML file 'cryptGrayImg.fxml'.";
+        assert imgCryptView != null : "fx:id=\"imgCryptView\" was not injected: check your FXML file 'cryptGrayImg.fxml'.";
+        assert imgDeCryptView != null : "fx:id=\"imgDeCryptView\" was not injected: check your FXML file 'cryptGrayImg.fxml'.";
+        assert imgOrigView != null : "fx:id=\"imgOrigView\" was not injected: check your FXML file 'cryptGrayImg.fxml'.";
         selectDefaultImg(); //чтоб не выбирать изображение каждый раз при запуске проги
     }
 
