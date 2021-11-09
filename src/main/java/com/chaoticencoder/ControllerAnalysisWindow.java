@@ -49,10 +49,12 @@ public class ControllerAnalysisWindow {
         }
         BarCharLeft.getData().add(dsOrig);
         BarCharRight.getData().add(dsCrypt);
+        System.out.println("Гистограммы построены");
 
         //сравнительные характеристики
         comparisonTA.appendText("NPCR: "+CryptAnalysis.NPCR(myChaoticEncDecImg.origImg, myChaoticEncDecImg.cryptImg));
         comparisonTA.appendText("\nUACI: "+CryptAnalysis.UACI(myChaoticEncDecImg.origImg, myChaoticEncDecImg.cryptImg));
+        System.out.println("Сравнительные хар-ки построены");
 
         //характеристики оригинала
         origTA.appendText("Энтропия: "+CryptAnalysis.entropy(myChaoticEncDecImg.origImg));
@@ -60,15 +62,15 @@ public class ControllerAnalysisWindow {
         origTA.appendText("\n   по горизонтале: "+CryptAnalysis.correlation(myChaoticEncDecImg.origImg)[0]);
         origTA.appendText("\n   по вертикале: "+CryptAnalysis.correlation(myChaoticEncDecImg.origImg)[1]);
         origTA.appendText("\n   по диагонале: "+CryptAnalysis.correlation(myChaoticEncDecImg.origImg)[2]);
+        System.out.println("Хар-ки оригинала построены");
 
-        //характеристики оригинала
+        //характеристики криптограммы
         cryptTA.appendText("Энтропия: "+CryptAnalysis.entropy(myChaoticEncDecImg.cryptImg));
         cryptTA.appendText("\nКорреляция");
         cryptTA.appendText("\n   по горизонтале: "+CryptAnalysis.correlation(myChaoticEncDecImg.cryptImg)[0]);
         cryptTA.appendText("\n   по вертикале: "+CryptAnalysis.correlation(myChaoticEncDecImg.cryptImg)[1]);
         cryptTA.appendText("\n   по диагонале: "+CryptAnalysis.correlation(myChaoticEncDecImg.cryptImg)[2]);
-
-
+        System.out.println("Хар-ки криптограммы построены");
     }
 
 }

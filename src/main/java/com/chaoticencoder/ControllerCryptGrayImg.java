@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -52,6 +53,9 @@ public class ControllerCryptGrayImg {
 
     @FXML
     private TextField generationCount;
+
+    @FXML
+    private CheckBox switchControl;
 
     @FXML
     private void onChooseImgClick(ActionEvent event) throws Exception {
@@ -104,6 +108,7 @@ public class ControllerCryptGrayImg {
     @FXML
     void onEncryptBtnClick(ActionEvent event) {
         myChaoticEncDecImg.setNewGen(Integer.parseInt(generationCount.getText()));
+        myChaoticEncDecImg.upr = switchControl.isSelected() ? 1 : 0;
         myChaoticEncDecImg.cryptImg = new BufferedImage(myChaoticEncDecImg.origImg.getColorModel(),
                 myChaoticEncDecImg.origImg.copyData(null), myChaoticEncDecImg.origImg.getColorModel().isAlphaPremultiplied(), null);
 
