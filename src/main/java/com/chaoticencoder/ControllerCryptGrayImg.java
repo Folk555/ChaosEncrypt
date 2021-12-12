@@ -12,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -21,11 +20,10 @@ import javafx.embed.swing.SwingFXUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.InputStream;
 
 public class ControllerCryptGrayImg {
 
-    static ChaoticEncDecImg myChaoticEncDecImg;
+    static ChaoticEncDecGrayImg myChaoticEncDecGrayImg;
 
     @FXML
     private Button chooseImg;
@@ -58,6 +56,9 @@ public class ControllerCryptGrayImg {
     private CheckBox switchControl;
 
     @FXML
+    private Button toMenuBtn;
+
+    @FXML
     private void onChooseImgClick(ActionEvent event) throws Exception {
         FileChooser myFileChooser = new FileChooser();
         Stage fileChooserStage = new Stage();
@@ -65,11 +66,11 @@ public class ControllerCryptGrayImg {
         if (selectedFile == null) return; //в случае если нажали "Отмена" при выборе файла
         BufferedImage img = ImageIO.read(selectedFile);
 
-        myChaoticEncDecImg =
-                new ChaoticEncDecImg.ChaoticEncDecImgBuilder()
+        myChaoticEncDecGrayImg =
+                new ChaoticEncDecGrayImg.ChaoticEncDecImgBuilder()
                         .withImage( img )
                         .build();
-        imgOrigView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.origImg, null ));
+        imgOrigView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecGrayImg.origImg, null ));
         chosenImgLabel.setText(selectedFile.getPath());
 
         decryptionBtn.setDisable(false);
@@ -93,30 +94,30 @@ public class ControllerCryptGrayImg {
     @FXML
     void onDecryptionBtnClick(ActionEvent event) {
 
-        myChaoticEncDecImg.decrypt();
-        imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.deCryptImg, null ));
+        myChaoticEncDecGrayImg.decrypt();
+        imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecGrayImg.deCryptImg, null ));
 
-        for (int i=myChaoticEncDecImg.sz_imgX-1; i>=0; --i) {
-            for (int j=myChaoticEncDecImg.sz_imgY-1; j>=0; --j) {
+        for (int i = myChaoticEncDecGrayImg.sz_imgX-1; i>=0; --i) {
+            for (int j = myChaoticEncDecGrayImg.sz_imgY-1; j>=0; --j) {
 
-                if (Math.abs((myChaoticEncDecImg.deCryptImg.getRGB(i,j) & 0xff) - ((myChaoticEncDecImg.origImg.getRGB(i,j) & 0xff)))>0)
-                    System.out.println("i: "+i+"  j: "+j+"  дешифр: "+ (myChaoticEncDecImg.deCryptImg.getRGB(i,j) & 0xff)+"  оригин: "+(myChaoticEncDecImg.origImg.getRGB(i,j) & 0xff));
+                if (Math.abs((myChaoticEncDecGrayImg.deCryptImg.getRGB(i,j) & 0xff) - ((myChaoticEncDecGrayImg.origImg.getRGB(i,j) & 0xff)))>0)
+                    System.out.println("i: "+i+"  j: "+j+"  дешифр: "+ (myChaoticEncDecGrayImg.deCryptImg.getRGB(i,j) & 0xff)+"  оригин: "+(myChaoticEncDecGrayImg.origImg.getRGB(i,j) & 0xff));
             }
         }
     }
 
     @FXML
     void onEncryptBtnClick(ActionEvent event) {
-        myChaoticEncDecImg.setNewGen(Integer.parseInt(generationCount.getText()));
-        myChaoticEncDecImg.upr = switchControl.isSelected() ? 1 : 0;
-        myChaoticEncDecImg.cryptImg = new BufferedImage(myChaoticEncDecImg.origImg.getColorModel(),
-                myChaoticEncDecImg.origImg.copyData(null), myChaoticEncDecImg.origImg.getColorModel().isAlphaPremultiplied(), null);
+        myChaoticEncDecGrayImg.setNewGen(Integer.parseInt(generationCount.getText()));
+        myChaoticEncDecGrayImg.upr = switchControl.isSelected() ? 1 : 0;
+        myChaoticEncDecGrayImg.cryptImg = new BufferedImage(myChaoticEncDecGrayImg.origImg.getColorModel(),
+                myChaoticEncDecGrayImg.origImg.copyData(null), myChaoticEncDecGrayImg.origImg.getColorModel().isAlphaPremultiplied(), null);
 
         //System.out.println("  cryptImg: "+(myChaoticEncDecImg.origImg.getRGB(19,13)& 0xff)+"  origImg: "+(myChaoticEncDecImg.origImg.getRGB(19,13)& 0xff));
 
-        myChaoticEncDecImg.encrypt();
-        imgCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.cryptImg, null ));
-        imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.deCryptImg, null ));
+        myChaoticEncDecGrayImg.encrypt();
+        imgCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecGrayImg.cryptImg, null ));
+        imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecGrayImg.deCryptImg, null ));
         onDecryptionBtnClick(new ActionEvent());
         analysisBtn.setDisable(false);
     }
@@ -132,15 +133,29 @@ public class ControllerCryptGrayImg {
             return;
         }
 
-        myChaoticEncDecImg =
-                new ChaoticEncDecImg.ChaoticEncDecImgBuilder()
+        myChaoticEncDecGrayImg =
+                new ChaoticEncDecGrayImg.ChaoticEncDecImgBuilder()
                         .withImage( img )
                         .build();
-        imgOrigView.setImage(SwingFXUtils.toFXImage(ControllerCryptGrayImg.myChaoticEncDecImg.origImg, null ));
+        imgOrigView.setImage(SwingFXUtils.toFXImage(ControllerCryptGrayImg.myChaoticEncDecGrayImg.origImg, null ));
         chosenImgLabel.setText(selectedImgDefault.getPath());
 
         decryptionBtn.setDisable(false);
         encryptBtn.setDisable(false);
+    }
+
+    @FXML
+    void onToMenuBtnClick(ActionEvent event) {
+        Stage stage = (Stage) Stage.getWindows().get(0);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Parent root = fxmlLoader.getRoot();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML

@@ -3,7 +3,7 @@ package com.chaoticencoder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class CryptAnalysis {
+public class CryptGrayImgAnalysis {
 
     static public double NPCR(BufferedImage myImage, BufferedImage compareImg) {
 
@@ -20,7 +20,7 @@ public class CryptAnalysis {
         double UACI = 0;
         for (int i = 0; i < myImage.getWidth(); i++)
             for (int j = 0; j < myImage.getHeight(); j++) {
-                UACI += Math.abs((myImage.getRGB(i,j) & 0xff) - (compareImg.getRGB(i,j) & 0xff));
+                UACI += (Math.abs((myImage.getRGB(i,j) & 0xff) - (compareImg.getRGB(i,j) & 0xff))) / 255.0;
             }
         UACI /= myImage.getWidth() * myImage.getHeight();
         return UACI;

@@ -1,15 +1,12 @@
 package com.chaoticencoder;
 
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class  ChaoticEncDecImg {
+public class ChaoticEncDecGrayImg {
     public BufferedImage origImg, cryptImg, deCryptImg;
     public int randseed, sz_imgX, sz_imgY, upr;
     private int gen;
@@ -17,7 +14,7 @@ public class  ChaoticEncDecImg {
     //Если пиксель не надо отслеживать вводим отрицательные(несуществующие координаты).
     int fromX=-11, fromY=-11; // задаем пиксель который надо отследить.
 
-    private ChaoticEncDecImg(){}
+    private ChaoticEncDecGrayImg(){}
 
     static public class ChaoticEncDecImgBuilder{
         private BufferedImage origImg, cryptImg, deCryptImg;
@@ -45,19 +42,19 @@ public class  ChaoticEncDecImg {
             this.sz_imgY = sz_imgY;
             return this;
         }
-        public ChaoticEncDecImg build(){
-            ChaoticEncDecImg chaoticEncDecImg = new ChaoticEncDecImg();
+        public ChaoticEncDecGrayImg build(){
+            ChaoticEncDecGrayImg chaoticEncDecGrayImg = new ChaoticEncDecGrayImg();
 
-            chaoticEncDecImg.randseed = this.randseed;
-            chaoticEncDecImg.gen = this.gen;
-            chaoticEncDecImg.upr = this.upr;
-            chaoticEncDecImg.sz_imgX = sz_imgX;
-            chaoticEncDecImg.sz_imgY = sz_imgY;
+            chaoticEncDecGrayImg.randseed = this.randseed;
+            chaoticEncDecGrayImg.gen = this.gen;
+            chaoticEncDecGrayImg.upr = this.upr;
+            chaoticEncDecGrayImg.sz_imgX = sz_imgX;
+            chaoticEncDecGrayImg.sz_imgY = sz_imgY;
 
-            chaoticEncDecImg.key = new ArrayList<>(gen*sz_imgX*sz_imgY);
+            chaoticEncDecGrayImg.key = new ArrayList<>(gen*sz_imgX*sz_imgY);
             Random generator = new Random(randseed);
             for (int i = 0; i < gen*sz_imgX*sz_imgY; i++) {
-                chaoticEncDecImg.key.add(generator.nextDouble() * 10);
+                chaoticEncDecGrayImg.key.add(generator.nextDouble() * 10);
             }
 
             // меняем размер изображения
@@ -87,9 +84,9 @@ public class  ChaoticEncDecImg {
             }
 
 
-            chaoticEncDecImg.origImg = resized;
+            chaoticEncDecGrayImg.origImg = resized;
 
-            return chaoticEncDecImg;
+            return chaoticEncDecGrayImg;
         }
     }
 
@@ -98,17 +95,35 @@ public class  ChaoticEncDecImg {
         double x0=x0y0z0.get(0).doubleValue(), y0=x0y0z0.get(1).doubleValue(),
                 z0=x0y0z0.get(2).doubleValue(); //инициализирую нач условия не как ArrayList
         double k[] = {1.0426,  -0.4943, -22.8945};
+        //double k[] = {-0.0585,  0.0289, 0.4508};
         ArrayList<Number> xyz = new ArrayList<>(3);
         if (upr==0){
+
             xyz.add(-(y0 + z0));
             xyz.add((x0 + a * y0));
             xyz.add(b + z0*(x0 - r));
+
+            /*
+            xyz.add(x0-e*(y0 + z0));
+            xyz.add(y0+e*(x0 + a * y0));
+            xyz.add(z0+e*b + z0*e*(x0 - r));
+            */
+
+
             return xyz;
         }
         else{
+
             xyz.add(-(y0 + z0));
             xyz.add((x0 + a * y0)+k[0]*x0+k[1]*y0+k[2]*z0);
             xyz.add(b + z0 * (x0 - r)+k[0]*x0+k[1]*y0+k[2]*z0);
+
+            /*
+            xyz.add(x0-e*(y0 + z0));
+            xyz.add(y0+e*(x0 + a * y0)+k[0]*x0+k[1]*y0+k[2]*z0);
+            xyz.add(z0+e*b + z0*e*(x0 - r)+k[0]*x0+k[1]*y0+k[2]*z0);
+            */
+
             return xyz;
         }
     }

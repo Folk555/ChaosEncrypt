@@ -15,17 +15,19 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cryptGrayImg.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Шифратор");
         InputStream iconStream =
-                getClass().getResourceAsStream("/icon.png"); //getClass() возвращает текущий класс.
+                getClass().getResourceAsStream("/files/icon.png"); //getClass() возвращает текущий класс.
         // getResourceAsStream открывает ресурсы модуля в котором находится текущий класс
         Image image = new Image(iconStream);
         stage.getIcons().add(image);
 
         stage.setScene(scene);
         stage.show();
+
+
 
     }
 

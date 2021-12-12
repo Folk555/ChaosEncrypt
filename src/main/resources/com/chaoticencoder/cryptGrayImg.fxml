@@ -63,8 +63,13 @@
          </children>
       </VBox>
       <Button fx:id="analysisBtn" disable="true" layoutX="582.0" layoutY="534.0" mnemonicParsing="false" onAction="#onAnalysisBtnClick" text="Анализ" />
-      <TextField fx:id="generationCount" layoutX="1042.0" layoutY="38.0" text="1" />
-      <Label layoutX="1042.0" layoutY="14.0" text="Количество итераций:" />
-      <CheckBox fx:id="switchControl" layoutX="1042.0" layoutY="73.0" mnemonicParsing="false" text="Управление хаосом" />
+      <TextField fx:id="generationCount" layoutX="1015.0" layoutY="34.0" text="1" />
+      <Label layoutX="1015.0" layoutY="10.0" text="Количество раундов шифрования:" />
+      <CheckBox fx:id="switchControl" layoutX="1015.0" layoutY="69.0" mnemonicParsing="false" text="Управление хаосом" />
+      <Button fx:id="toMenuBtn" layoutX="10.0" layoutY="547.0" mnemonicParsing="false" onAction="#onToMenuBtnClick" prefHeight="50.0" prefWidth="199.0" text="Вернуться в меню">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

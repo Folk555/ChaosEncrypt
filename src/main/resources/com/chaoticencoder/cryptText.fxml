@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="477.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chaoticencoder.ControllerCryptText">
+   <children>
+      <TextArea fx:id="origTextArea" layoutX="13.0" layoutY="123.0" onKeyPressed="#realTimeSwitchCryptBtn" prefHeight="82.0" prefWidth="626.0" text="Привет" wrapText="true" />
+      <TextArea fx:id="cryptTextArea" editable="false" layoutX="14.0" layoutY="216.0" prefHeight="91.0" prefWidth="626.0" wrapText="true" />
+      <Button fx:id="toMenuBtn" layoutX="14.0" layoutY="413.0" mnemonicParsing="false" onAction="#onToMenuBtnClick" prefHeight="50.0" prefWidth="199.0" text="Вернуться в меню">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="encryptBtn" alignment="TOP_CENTER" layoutX="235.0" layoutY="78.0" mnemonicParsing="false" onAction="#onEncryptBtnClick" text="Шифровать + дешифровать" />
+      <TextField fx:id="generationCount" layoutX="477.0" layoutY="38.0" text="1" />
+      <Label layoutX="477.0" layoutY="14.0" text="Количество итераций:" />
+      <CheckBox fx:id="switchControl" layoutX="477.0" layoutY="73.0" mnemonicParsing="false" text="Управление хаосом" />
+      <TextArea fx:id="deCryptTextArea" editable="false" layoutX="14.0" layoutY="315.0" prefHeight="91.0" prefWidth="626.0" wrapText="true" />
+      <Button fx:id="alphabetCreateBtn" layoutX="510.0" layoutY="438.0" mnemonicParsing="false" onAction="#createAlphabet" text="Генерация алфавита">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Button>
+      <Label layoutX="700.0" layoutY="93.0" text="Результаты криптоанализа">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="cryptAnalysis" editable="false" layoutX="651.0" layoutY="116.0" prefHeight="200.0" prefWidth="269.0" />
+   </children>
+</AnchorPane>
