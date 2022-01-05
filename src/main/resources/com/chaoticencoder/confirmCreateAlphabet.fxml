@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="271.0" prefWidth="370.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chaoticencoder.ControllerConfirmCreateAlphabet">
+   <children>
+      <Text layoutX="10.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Данное действие очистит текущий файл с алфавитом и запишет новые символы. В новом алфавите будут отсутствовать символы которые были добавлены пользователем вручную." textAlignment="CENTER" wrappingWidth="349.775390625">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Text>
+      <Label layoutX="90.0" layoutY="136.0" text="Создать новый алфавит?">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnConfirm" layoutX="64.0" layoutY="205.0" mnemonicParsing="false" onAction="#onConfirmBtnClick" text="Да" />
+      <Button fx:id="btnCancel" layoutX="254.0" layoutY="205.0" mnemonicParsing="false" onAction="#onCancelBtnClick" text="Отмена" />
+   </children>
+</AnchorPane>

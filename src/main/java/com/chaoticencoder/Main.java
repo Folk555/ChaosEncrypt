@@ -15,8 +15,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu.fxml")); //загружаем XML с наполнением сцены (элементы node - узлы)
+        Scene scene = new Scene(fxmlLoader.load());// Создаем сцену
         stage.setTitle("Шифратор");
         InputStream iconStream =
                 getClass().getResourceAsStream("/files/icon.png"); //getClass() возвращает текущий класс.
@@ -24,7 +24,7 @@ public class Main extends Application {
         Image image = new Image(iconStream);
         stage.getIcons().add(image);
 
-        stage.setScene(scene);
+        stage.setScene(scene); //Загружаем сцену на  Stage.
         stage.show();
 
 

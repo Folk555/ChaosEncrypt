@@ -68,6 +68,7 @@ public class CryptGrayImgAnalysis {
         }
         correlation[0] = n1 / n4;
 
+
         //Vertically
         n1 = 0;
         n2 = 0;
@@ -86,6 +87,7 @@ public class CryptGrayImgAnalysis {
         }
         correlation[1] = n1 / n4;
 
+
         //Diagonally
         n1 = 0;
         n2 = 0;
@@ -94,7 +96,7 @@ public class CryptGrayImgAnalysis {
         // кореляция высчитывается в два этапа:
         // этап 1: вычисляем разницу пикселей между левым верхним и правым нижним пикселем на диагонале
         //   правый верхний пиксель картинки первая диагональ, диагональ картинки - последняя диагональ в 1ом этапе
-        for (int j = myImage.getWidth(); j >= 0; j++) {  // Идем с последнего столбика к первому
+        for (int j = myImage.getWidth(); j >= 0; j--) {  // Идем с последнего столбика к первому
             //счетчики для "бегущей строки" по диагонали
             int c = 0;  //столбик
             int i = 0;  //Строка

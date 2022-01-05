@@ -1,10 +1,7 @@
 package com.chaoticencoder;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
@@ -54,19 +52,26 @@ public class ControllerCryptText {
     private Button toMenuBtn;
 
     @FXML
+    private Button toImgBtn;
+
+    @FXML
     private Button alphabetCreateBtn;
+
+    static ChaoticEncDecText text;
 
     @FXML
     void onEncryptBtnClick(ActionEvent event) {
 
-        ChaoticEncDecText text = new ChaoticEncDecText(origTextArea.getText(),111, switchControl.isSelected(), Integer.parseInt(generationCount.getText()));
+        text = new ChaoticEncDecText(origTextArea.getText(),111, switchControl.isSelected(), Integer.parseInt(generationCount.getText()));
         cryptTextArea.setText(text.getCryptText());
         deCryptTextArea.setText(text.getDecryptText());
         cryptAnalysis.setText("Совпадения оригинал и криптограммы: " + "\n" + String.format("%.5f",CryptTextAnalysis.match(text.getOrigText(), text.getCryptText())) + "%");
         cryptAnalysis.appendText("\n");
-        cryptAnalysis.appendText("Совпадения оригинал и дешифровки: " + "\n" + String.format("%.1f",CryptTextAnalysis.match(text.getOrigText(), text.getDecryptText())) + "%");
+        cryptAnalysis.appendText("Совпадения оригинала и дешифровки: " + "\n" + String.format("%.1f",CryptTextAnalysis.match(text.getOrigText(), text.getDecryptText())) + "%");
 
-        /*myChaoticEncDecImg.setNewGen(Integer.parseInt(generationCount.getText()));
+        toImgBtn.setDisable(false);
+        /*
+        myChaoticEncDecImg.setNewGen(Integer.parseInt(generationCount.getText()));
         myChaoticEncDecImg.upr = switchControl.isSelected() ? 1 : 0;
         myChaoticEncDecImg.cryptImg = new BufferedImage(myChaoticEncDecImg.origImg.getColorModel(),
                 myChaoticEncDecImg.origImg.copyData(null), myChaoticEncDecImg.origImg.getColorModel().isAlphaPremultiplied(), null);
@@ -78,31 +83,18 @@ public class ControllerCryptText {
         imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.deCryptImg, null ));
         onDecryptionBtnClick(new ActionEvent());
         analysisBtn.setDisable(false);
-
          */
     }
 
     @FXML
-    void createAlphabet(ActionEvent event) {
-        File alphabet = new File("src/main/resources/files/alphabet.txt");
+    void createAlphabet(ActionEvent event) throws IOException {
 
-        try {
-            if (alphabet.exists()) alphabet.delete();
-            PrintWriter pw = new PrintWriter(alphabet);
-            for (int i = 32; i <= 126; i++) {
-                char c = (char) i;
-                pw.print(c);
-            }
-            for (int i = 1040; i <= 1103; i++) {
-                char c = (char) i;
-                pw.print(c);
-            }
-            pw.close();
-        } catch (IOException e) {
-            System.out.println("Файл алфавита не был создан");
-            e.printStackTrace();
-        }
-
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("confirmCreateAlphabet.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        //stage.setTitle("Шифратор");
+        stage.setScene(scene);
+        stage.show();
 
     }
 
@@ -121,6 +113,16 @@ public class ControllerCryptText {
     }
 
     @FXML
+    void onToImgBtnClick(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("textToImg.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    //Проверка что текст для дешифровки не пустой
     void realTimeSwitchCryptBtn(KeyEvent event) {
         if (origTextArea.getText().length() > 0) encryptBtn.setDisable(false);
         else encryptBtn.setDisable(true);
@@ -135,7 +137,6 @@ public class ControllerCryptText {
         assert origTextArea != null : "fx:id=\"origTextArea\" was not injected: check your FXML file 'cryptText.fxml'.";
         assert switchControl != null : "fx:id=\"switchControl\" was not injected: check your FXML file 'cryptText.fxml'.";
         assert toMenuBtn != null : "fx:id=\"toMenuBtn\" was not injected: check your FXML file 'cryptText.fxml'.";
-
     }
 
 }
