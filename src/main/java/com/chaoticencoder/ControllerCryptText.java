@@ -69,21 +69,8 @@ public class ControllerCryptText {
         cryptAnalysis.appendText("\n");
         cryptAnalysis.appendText("Совпадения оригинала и дешифровки: " + "\n" + String.format("%.1f",CryptTextAnalysis.match(text.getOrigText(), text.getDecryptText())) + "%");
 
-        toImgBtn.setDisable(false);
-        /*
-        myChaoticEncDecImg.setNewGen(Integer.parseInt(generationCount.getText()));
-        myChaoticEncDecImg.upr = switchControl.isSelected() ? 1 : 0;
-        myChaoticEncDecImg.cryptImg = new BufferedImage(myChaoticEncDecImg.origImg.getColorModel(),
-                myChaoticEncDecImg.origImg.copyData(null), myChaoticEncDecImg.origImg.getColorModel().isAlphaPremultiplied(), null);
+        if (text.getAlphabetSize()<=256) toImgBtn.setDisable(false);
 
-        //System.out.println("  cryptImg: "+(myChaoticEncDecImg.origImg.getRGB(19,13)& 0xff)+"  origImg: "+(myChaoticEncDecImg.origImg.getRGB(19,13)& 0xff));
-
-        myChaoticEncDecImg.encrypt();
-        imgCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.cryptImg, null ));
-        imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecImg.deCryptImg, null ));
-        onDecryptionBtnClick(new ActionEvent());
-        analysisBtn.setDisable(false);
-         */
     }
 
     @FXML
@@ -122,7 +109,7 @@ public class ControllerCryptText {
     }
 
     @FXML
-    //Проверка что текст для дешифровки не пустой
+    //Проверка что оригинальный текст не пустой
     void realTimeSwitchCryptBtn(KeyEvent event) {
         if (origTextArea.getText().length() > 0) encryptBtn.setDisable(false);
         else encryptBtn.setDisable(true);

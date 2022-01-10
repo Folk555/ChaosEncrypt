@@ -60,6 +60,7 @@ public class ControllerTextToImg {
         for (int x = 0; x < squareImg; x++) {
             for (int y = 0; y < squareImg; y++) {
                 int grey = origTextCode[x*squareImg+y];
+                System.out.println(grey);
                 int newRed = grey;
                 int newGreen = grey;
                 int newBlue = grey;

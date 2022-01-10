@@ -11,6 +11,8 @@ public class ChaoticEncDecGrayImg {
     public int randseed, sz_imgX, sz_imgY, upr;
     private int gen;
     private ArrayList<Number> key;
+    private double resslerParametrE=Constants.RESSLER_PARAMETR_E, resslerParametrA=Constants.RESSLER_PARAMETR_A,
+            resslerParametrB=Constants.RESSLER_PARAMETR_B, resslerParametrR=Constants.RESSLER_PARAMETR_R;
     //Если пиксель не надо отслеживать вводим отрицательные(несуществующие координаты).
     int fromX=-11, fromY=-11; // задаем пиксель который надо отследить.
 
@@ -91,7 +93,7 @@ public class ChaoticEncDecGrayImg {
     }
 
     private ArrayList<Number> nextResler(ArrayList<Number> x0y0z0) {
-        double e=0.05, a=0.2, b=0.2, r=5.7;
+
         double x0=x0y0z0.get(0).doubleValue(), y0=x0y0z0.get(1).doubleValue(),
                 z0=x0y0z0.get(2).doubleValue(); //инициализирую нач условия не как ArrayList
         double k[] = {1.0426,  -0.4943, -22.8945};
@@ -100,13 +102,13 @@ public class ChaoticEncDecGrayImg {
         if (upr==0){
 
             xyz.add(-(y0 + z0));
-            xyz.add((x0 + a * y0));
-            xyz.add(b + z0*(x0 - r));
+            xyz.add((x0 + resslerParametrA * y0));
+            xyz.add(resslerParametrB + z0*(x0 - resslerParametrR));
 
             /*
             xyz.add(x0-e*(y0 + z0));
-            xyz.add(y0+e*(x0 + a * y0));
-            xyz.add(z0+e*b + z0*e*(x0 - r));
+            xyz.add(y0+e*(x0 + resslerParametrA * y0));
+            xyz.add(z0+e*resslerParametrB + z0*e*(x0 - resslerParametrR));
             */
 
 
@@ -115,13 +117,13 @@ public class ChaoticEncDecGrayImg {
         else{
 
             xyz.add(-(y0 + z0));
-            xyz.add((x0 + a * y0)+k[0]*x0+k[1]*y0+k[2]*z0);
-            xyz.add(b + z0 * (x0 - r)+k[0]*x0+k[1]*y0+k[2]*z0);
+            xyz.add((x0 + resslerParametrA * y0)+k[0]*x0+k[1]*y0+k[2]*z0);
+            xyz.add(resslerParametrB + z0 * (x0 - resslerParametrR)+k[0]*x0+k[1]*y0+k[2]*z0);
 
             /*
             xyz.add(x0-e*(y0 + z0));
-            xyz.add(y0+e*(x0 + a * y0)+k[0]*x0+k[1]*y0+k[2]*z0);
-            xyz.add(z0+e*b + z0*e*(x0 - r)+k[0]*x0+k[1]*y0+k[2]*z0);
+            xyz.add(y0+e*(x0 + resslerParametrA * y0)+k[0]*x0+k[1]*y0+k[2]*z0);
+            xyz.add(z0+e*resslerParametrB + z0*e*(x0 - resslerParametrR)+k[0]*x0+k[1]*y0+k[2]*z0);
             */
 
             return xyz;
@@ -253,6 +255,15 @@ public class ChaoticEncDecGrayImg {
         }
     }
     public void setNewGen(int gen){
+        this.gen = gen;
+        key = new ArrayList<>(gen*sz_imgX*sz_imgY);
+        Random generator = new Random(randseed);
+        for (int i = 0; i < gen*sz_imgX*sz_imgY; i++) {
+            key.add(generator.nextDouble() * 10);
+        }
+    }
+
+    public void setNewRarametrs(int gen, int e, int a, int b, int r, boolean upr){
         this.gen = gen;
         key = new ArrayList<>(gen*sz_imgX*sz_imgY);
         Random generator = new Random(randseed);

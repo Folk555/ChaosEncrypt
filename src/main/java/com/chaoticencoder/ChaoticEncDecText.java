@@ -17,7 +17,8 @@ public class ChaoticEncDecText {
     private int square, gen;
     boolean upr;
     private ArrayList<Number> key;
-    public ArrayList<Character> alphabet = new ArrayList<>();
+    private ArrayList<Character> alphabet = new ArrayList<>();
+    private int alphabetSize;
     int fromX = -10, fromY = 1; // задаем пиксель который надо отследить.
 
 
@@ -35,6 +36,7 @@ public class ChaoticEncDecText {
                 alphabet.add(c);
             }
             Collections.sort(alphabet);
+            alphabetSize = alphabet.size();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -239,5 +241,9 @@ public class ChaoticEncDecText {
             }
         }
         return textCode;
+    }
+
+    public int getAlphabetSize () {
+       return alphabetSize;
     }
 }
