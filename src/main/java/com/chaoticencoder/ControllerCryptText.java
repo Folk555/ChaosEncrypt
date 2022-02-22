@@ -101,11 +101,11 @@ public class ControllerCryptText {
 
     @FXML
     void onToImgBtnClick(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("textToImg.fxml"));
+        Stage stageForHistogram = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("textToImgHistogram.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setScene(scene);
-        stage.show();
+        stageForHistogram.setScene(scene);
+        stageForHistogram.show();
     }
 
     @FXML

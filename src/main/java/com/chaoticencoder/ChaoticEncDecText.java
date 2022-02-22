@@ -246,4 +246,8 @@ public class ChaoticEncDecText {
     public int getAlphabetSize () {
        return alphabetSize;
     }
+
+    public ArrayList<Character> getAlphabet() {
+        return alphabet;
+    }
 }

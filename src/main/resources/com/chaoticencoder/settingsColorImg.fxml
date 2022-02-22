@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="306.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chaoticencoder.ControllerSettingsGrayImg">
+<AnchorPane prefHeight="306.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chaoticencoder.ControllerSettingsColorImg">
    <children>
       <TextField fx:id="generationCount" layoutX="24.0" layoutY="38.0" text="1" />
       <Label layoutX="24.0" layoutY="14.0" text="Количество раундов шифрования:" />

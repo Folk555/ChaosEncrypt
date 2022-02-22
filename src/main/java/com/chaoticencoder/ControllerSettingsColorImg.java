@@ -1,7 +1,5 @@
 package com.chaoticencoder;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,7 +7,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class ControllerSettingsGrayImg {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class ControllerSettingsColorImg {
 
     @FXML
     private ResourceBundle resources;
@@ -47,7 +48,7 @@ public class ControllerSettingsGrayImg {
         Constants.generationCount = Integer.parseInt(generationCount.getText());
         Constants.switchControl = switchControl.isSelected();
 
-        ControllerCryptGrayImg.myChaoticEncDecGrayImg.setNewRarametrs(Constants.generationCount, Constants.RESSLER_PARAMETR_E,
+        ControllerCryptColorImg.myChaoticEncDecColorImg.setNewRarametrs(Constants.generationCount, Constants.RESSLER_PARAMETR_E,
                 Constants.RESSLER_PARAMETR_A, Constants.RESSLER_PARAMETR_B, Constants.RESSLER_PARAMETR_R, Constants.switchControl);
 
         Stage stage = (Stage) btnSave.getScene().getWindow();

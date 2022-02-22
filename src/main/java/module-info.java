@@ -10,4 +10,6 @@ module com.chaoticencoder {
 
     opens com.chaoticencoder to javafx.fxml;
     exports com.chaoticencoder;
+    exports test;
+    opens test to javafx.fxml;
 }

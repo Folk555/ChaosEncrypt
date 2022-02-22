@@ -33,7 +33,16 @@ public class ControllerMenu {
 
     @FXML
     void onColorImgBtnClick(ActionEvent event) {
-
+        Stage stage = (Stage) Stage.getWindows().get(0);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("cryptColorImg.fxml"));
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Parent root = fxmlLoader.getRoot();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML

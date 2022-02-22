@@ -51,7 +51,7 @@ public class CryptGrayImgAnalysis {
             for (int j = 0; j < myImage.getHeight(); j++) {
                 mean_pix += myImage.getRGB(i,j) & 0xff;
             }
-        mean_pix /= myImage.getHeight()*myImage.getWidth();// среднее арифметическое первого канала пикселя
+        mean_pix /= myImage.getHeight()*myImage.getWidth()*255;// среднее арифметическое первого канала пикселя
 
 
         //Horizontally

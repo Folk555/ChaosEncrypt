@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chaoticencoder.ControllerTextToImg">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chaoticencoder.ControllerTextToImgHistogram">
    <children>
       <VBox layoutX="14.0" layoutY="14.0" prefHeight="619.0" prefWidth="687.0">
          <children>
@@ -61,43 +59,6 @@
                   <TextArea fx:id="cryptTA" editable="false" layoutX="616.0" prefHeight="141.0" prefWidth="253.0" />
                </children>
             </AnchorPane>
-         </children>
-      </VBox>
-      <VBox layoutX="904.0" layoutY="14.0" prefHeight="600.0" prefWidth="302.0">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Оригинал">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imgOrigView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" smooth="false" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Криптограмма">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imgCryptView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" smooth="false" />
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Дешифровка">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ImageView fx:id="imgDeCryptView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                     <viewport>
-                        <Rectangle2D />
-                     </viewport></ImageView>
-               </children>
-            </HBox>
          </children>
       </VBox>
    </children>
