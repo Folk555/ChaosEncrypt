@@ -17,10 +17,14 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class ControllerCryptColorImg {
 
-    static ChaoticEncDecColorImg myChaoticEncDecColorImg;
+    static public ChaoticEncDecColorImg myChaoticEncDecColorImg;
 
     @FXML
     private Button analysisBtn;
@@ -72,17 +76,26 @@ public class ControllerCryptColorImg {
     }
 
     @FXML
-    void onAnalysisBtnClick(ActionEvent event) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("0.fxml"));
+    void onAnalysisBtnClick(ActionEvent event) throws MalformedURLException {
+        var fxmlsLoader = new ArrayList<FXMLLoader>();
+        fxmlsLoader.add(new FXMLLoader(getClass().getResource("colorImgAnalysis/blueChannelAnalysis.fxml")));
+        fxmlsLoader.add(new FXMLLoader(getClass().getResource("colorImgAnalysis/greenChannelAnalysis.fxml")));
+        fxmlsLoader.add(new FXMLLoader(getClass().getResource("colorImgAnalysis/redChannelAnalysis.fxml")));
         try {
-            fxmlLoader.load();
+            for (var fxml:fxmlsLoader) {
+                fxml.load();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Parent root = fxmlLoader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.show();
+
+        for (var fxml:fxmlsLoader) {
+            Parent root = fxml.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+
     }
 
     @FXML
@@ -128,6 +141,7 @@ public class ControllerCryptColorImg {
     void onToMenuBtnClick(ActionEvent event) {
         Stage stage = (Stage) Stage.getWindows().get(0);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
+
         try {
             fxmlLoader.load();
         } catch (IOException e) {

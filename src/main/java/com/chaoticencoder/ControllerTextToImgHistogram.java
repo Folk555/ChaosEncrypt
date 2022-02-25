@@ -2,14 +2,12 @@ package com.chaoticencoder;
 
 //import java.awt.*;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -102,8 +100,8 @@ public class ControllerTextToImgHistogram {
         }
 
         //Гистограмма
-        int[] invariantOrig = CryptGrayImgAnalysis.invariant(imgFromOrigText);
-        int[] invariantCrypt = CryptGrayImgAnalysis.invariant(imgFromCryptText);
+        int[] invariantOrig = CryptImgAnalysis.getInvariantGreenPixels(imgFromOrigText);
+        int[] invariantCrypt = CryptImgAnalysis.getInvariantGreenPixels(imgFromCryptText);
         XYChart.Series dsOrig = new XYChart.Series();
         XYChart.Series dsCrypt = new XYChart.Series();
         for (int i = 0; i < invariantOrig.length; i++) {
@@ -115,23 +113,23 @@ public class ControllerTextToImgHistogram {
         System.out.println("Гистограммы построены");
 
         //сравнительные характеристики
-        comparisonTA.appendText("NPCR: "+ CryptGrayImgAnalysis.NPCR(imgFromOrigText, imgFromCryptText));
-        comparisonTA.appendText("\nUACI: "+ CryptGrayImgAnalysis.UACI(imgFromOrigText, imgFromCryptText));
+        comparisonTA.appendText("NPCR: "+ CryptImgAnalysis.NPCR(imgFromOrigText, imgFromCryptText));
+        comparisonTA.appendText("\nUACI: "+ CryptImgAnalysis.getUACIgrayPixels(imgFromOrigText, imgFromCryptText));
         System.out.println("Сравнительные хар-ки построены");
 
         //характеристики оригинала
-        origTA.appendText("Энтропия: "+ CryptGrayImgAnalysis.entropy(imgFromOrigText));
+        origTA.appendText("Энтропия: "+ CryptImgAnalysis.getEntropyGrayPixels(imgFromOrigText));
         origTA.appendText("\nКорреляция");
-        double[] corr = CryptGrayImgAnalysis.correlation(imgFromOrigText);
+        double[] corr = CryptImgAnalysis.getCorrelationGrayPixels(imgFromOrigText);
         origTA.appendText("\n   по горизонтале: "+ corr[0]);
         origTA.appendText("\n   по вертикале: "+ corr[1]);
         origTA.appendText("\n   по диагонале: "+ corr[2]);
         System.out.println("Хар-ки оригинала построены");
 
         //характеристики криптограммы
-        cryptTA.appendText("Энтропия: "+ CryptGrayImgAnalysis.entropy(imgFromCryptText));
+        cryptTA.appendText("Энтропия: "+ CryptImgAnalysis.getEntropyGrayPixels(imgFromCryptText));
         cryptTA.appendText("\nКорреляция");
-        corr = CryptGrayImgAnalysis.correlation(imgFromCryptText);
+        corr = CryptImgAnalysis.getCorrelationGrayPixels(imgFromCryptText);
         cryptTA.appendText("\n   по горизонтале: "+ corr[0]);
         cryptTA.appendText("\n   по вертикале: "+ corr[1]);
         cryptTA.appendText("\n   по диагонале: "+ corr[2]);

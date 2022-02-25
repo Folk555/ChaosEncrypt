@@ -8,7 +8,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.TextArea;
 
-public class ControllerAnalysisWindow {
+public class ControllerGrayImgAnalysis {
 
     static ChaoticEncDecGrayImg myChaoticEncDecGrayImg = ControllerCryptGrayImg.myChaoticEncDecGrayImg;
 
@@ -39,8 +39,8 @@ public class ControllerAnalysisWindow {
         assert BarCharRight != null : "fx:id=\"BarCharRight\" was not injected: check your FXML file 'analysisWindow.fxml'.";
 
         //Гистограмма
-        int[] invariantOrig = CryptGrayImgAnalysis.invariant(myChaoticEncDecGrayImg.origImg);
-        int[] invariantCrypt = CryptGrayImgAnalysis.invariant(myChaoticEncDecGrayImg.cryptImg);
+        int[] invariantOrig = CryptImgAnalysis.getInvariantGrayPixels(myChaoticEncDecGrayImg.origImg);
+        int[] invariantCrypt = CryptImgAnalysis.getInvariantGrayPixels(myChaoticEncDecGrayImg.cryptImg);
         XYChart.Series dsOrig = new XYChart.Series();
         XYChart.Series dsCrypt = new XYChart.Series();
         for (int i = 0; i < invariantOrig.length; i++) {
@@ -52,24 +52,24 @@ public class ControllerAnalysisWindow {
         System.out.println("Гистограммы построены");
 
         //сравнительные характеристики
-        comparisonTA.appendText("NPCR: "+ CryptGrayImgAnalysis.NPCR(myChaoticEncDecGrayImg.origImg, myChaoticEncDecGrayImg.cryptImg));
-        comparisonTA.appendText("\nUACI: "+ CryptGrayImgAnalysis.UACI(myChaoticEncDecGrayImg.origImg, myChaoticEncDecGrayImg.cryptImg));
+        comparisonTA.appendText("NPCR: "+ CryptImgAnalysis.NPCR(myChaoticEncDecGrayImg.origImg, myChaoticEncDecGrayImg.cryptImg));
+        comparisonTA.appendText("\nUACI: "+ CryptImgAnalysis.getUACIgrayPixels(myChaoticEncDecGrayImg.origImg, myChaoticEncDecGrayImg.cryptImg));
         System.out.println("Сравнительные хар-ки построены");
 
         //характеристики оригинала
-        origTA.appendText("Энтропия: "+ CryptGrayImgAnalysis.entropy(myChaoticEncDecGrayImg.origImg));
+        origTA.appendText("Энтропия: "+ CryptImgAnalysis.getEntropyGrayPixels(myChaoticEncDecGrayImg.origImg));
         origTA.appendText("\nКорреляция");
-        origTA.appendText("\n   по горизонтале: "+ CryptGrayImgAnalysis.correlation(myChaoticEncDecGrayImg.origImg)[0]);
-        origTA.appendText("\n   по вертикале: "+ CryptGrayImgAnalysis.correlation(myChaoticEncDecGrayImg.origImg)[1]);
-        origTA.appendText("\n   по диагонале: "+ CryptGrayImgAnalysis.correlation(myChaoticEncDecGrayImg.origImg)[2]);
+        origTA.appendText("\n   по горизонтале: "+ CryptImgAnalysis.getCorrelationGrayPixels(myChaoticEncDecGrayImg.origImg)[0]);
+        origTA.appendText("\n   по вертикале: "+ CryptImgAnalysis.getCorrelationGrayPixels(myChaoticEncDecGrayImg.origImg)[1]);
+        origTA.appendText("\n   по диагонале: "+ CryptImgAnalysis.getCorrelationGrayPixels(myChaoticEncDecGrayImg.origImg)[2]);
         System.out.println("Хар-ки оригинала построены");
 
         //характеристики криптограммы
-        cryptTA.appendText("Энтропия: "+ CryptGrayImgAnalysis.entropy(myChaoticEncDecGrayImg.cryptImg));
+        cryptTA.appendText("Энтропия: "+ CryptImgAnalysis.getEntropyGrayPixels(myChaoticEncDecGrayImg.cryptImg));
         cryptTA.appendText("\nКорреляция");
-        cryptTA.appendText("\n   по горизонтале: "+ CryptGrayImgAnalysis.correlation(myChaoticEncDecGrayImg.cryptImg)[0]);
-        cryptTA.appendText("\n   по вертикале: "+ CryptGrayImgAnalysis.correlation(myChaoticEncDecGrayImg.cryptImg)[1]);
-        cryptTA.appendText("\n   по диагонале: "+ CryptGrayImgAnalysis.correlation(myChaoticEncDecGrayImg.cryptImg)[2]);
+        cryptTA.appendText("\n   по горизонтале: "+ CryptImgAnalysis.getCorrelationGrayPixels(myChaoticEncDecGrayImg.cryptImg)[0]);
+        cryptTA.appendText("\n   по вертикале: "+ CryptImgAnalysis.getCorrelationGrayPixels(myChaoticEncDecGrayImg.cryptImg)[1]);
+        cryptTA.appendText("\n   по диагонале: "+ CryptImgAnalysis.getCorrelationGrayPixels(myChaoticEncDecGrayImg.cryptImg)[2]);
         System.out.println("Хар-ки криптограммы построены");
     }
 

@@ -8,7 +8,7 @@ public final class Constants {
 
     //Константы системы ресслера
     public static double RESSLER_PARAMETR_E=0.05, RESSLER_PARAMETR_A=0.2, RESSLER_PARAMETR_B=0.2, RESSLER_PARAMETR_R=5.7;
-    public static int generationCount = 10;
+    public static int generationCount = 2;
     public static boolean switchControl = FALSE;
 
 }

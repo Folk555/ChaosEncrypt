@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="626.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chaoticencoder.ControllerGrayImgAnalysis">
+<AnchorPane prefHeight="626.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chaoticencoder.controllersColorImgAnalysis.ControllerRedChannelAnalysis">
    <children>
       <VBox prefHeight="619.0" prefWidth="945.0">
          <children>
@@ -57,6 +57,11 @@
                   <TextArea fx:id="comparisonTA" editable="false" layoutX="379.0" prefHeight="47.0" prefWidth="187.0" />
                   <TextArea fx:id="origTA" editable="false" layoutX="87.0" prefHeight="141.0" prefWidth="253.0" />
                   <TextArea fx:id="cryptTA" editable="false" layoutX="616.0" prefHeight="141.0" prefWidth="253.0" />
+                  <Label layoutX="368.0" layoutY="85.0" text="Красный канал пикселей" textFill="#ed0505">
+                     <font>
+                        <Font name="Times New Roman Bold" size="18.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </children>

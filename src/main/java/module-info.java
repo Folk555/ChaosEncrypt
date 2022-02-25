@@ -12,4 +12,6 @@ module com.chaoticencoder {
     exports com.chaoticencoder;
     exports test;
     opens test to javafx.fxml;
+    exports com.chaoticencoder.controllersColorImgAnalysis;
+    opens com.chaoticencoder.controllersColorImgAnalysis to javafx.fxml;
 }
