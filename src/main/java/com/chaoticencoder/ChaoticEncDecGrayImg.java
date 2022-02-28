@@ -23,7 +23,7 @@ public class ChaoticEncDecGrayImg {
 
     static public class ChaoticEncDecImgBuilder{
         private BufferedImage origImg, cryptImg, deCryptImg;
-        private int randseed = 111, sz_imgX = 512, sz_imgY = 512, gen = Constants.generationCount;
+        private int randseed = 111, sz_imgX = 1024, sz_imgY = 1024, gen = Constants.generationCount;
         boolean upr = Constants.switchControl;
         ArrayList<Number> key;
 

@@ -3,6 +3,7 @@ package com.chaoticencoder;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import javafx.embed.swing.SwingFXUtils;
@@ -11,10 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -64,6 +62,7 @@ public class ControllerCryptText {
 
         text = new ChaoticEncDecText(origTextArea.getText(),111, switchControl.isSelected(), Integer.parseInt(generationCount.getText()));
         cryptTextArea.setText(text.getCryptText());
+
         deCryptTextArea.setText(text.getDecryptText());
         cryptAnalysis.setText("Совпадения оригинал и криптограммы: " + "\n" + String.format("%.5f",CryptTextAnalysis.match(text.getOrigText(), text.getCryptText())) + "%");
         cryptAnalysis.appendText("\n");

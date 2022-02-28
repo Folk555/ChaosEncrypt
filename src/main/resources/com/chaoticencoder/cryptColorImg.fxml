@@ -67,5 +67,7 @@
          </font>
       </Button>
       <Button fx:id="toSettings" layoutX="1015.0" layoutY="23.0" mnemonicParsing="false" onAction="#onToSettingsBtnClick" text="Настроки криптографии" />
+      <Label fx:id="labelEncryptTime" layoutX="1035.0" layoutY="538.0" text="Время шифрования:" />
+      <Label fx:id="labelDecryptTime" layoutX="1022.0" layoutY="564.0" text="Время дешифрования:" />
    </children>
 </AnchorPane>

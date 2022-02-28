@@ -21,6 +21,9 @@ import javafx.embed.swing.SwingFXUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class ControllerCryptGrayImg {
 
@@ -57,6 +60,12 @@ public class ControllerCryptGrayImg {
     private Button toSettings;
 
     @FXML
+    private Label labelDecryptTime;
+
+    @FXML
+    private Label labelEncryptTime;
+
+    @FXML
     private void onChooseImgClick(ActionEvent event) throws Exception {
         FileChooser myFileChooser = new FileChooser();
         Stage fileChooserStage = new Stage();
@@ -91,33 +100,31 @@ public class ControllerCryptGrayImg {
 
     @FXML
     void onDecryptionBtnClick(ActionEvent event) {
+        long startTimeMiliseconds = Calendar.getInstance().getTime().getTime();
 
         myChaoticEncDecGrayImg.decrypt();
         imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecGrayImg.deCryptImg, null ));
+        analysisBtn.setDisable(false);
 
-        /*for (int i = myChaoticEncDecGrayImg.sz_imgX-1; i>=0; --i) {
-            for (int j = myChaoticEncDecGrayImg.sz_imgY-1; j>=0; --j) {
-
-                if (Math.abs((myChaoticEncDecGrayImg.deCryptImg.getRGB(i,j) & 0xff) - ((myChaoticEncDecGrayImg.origImg.getRGB(i,j) & 0xff)))>0)
-                    System.out.println("i: "+i+"  j: "+j+"  дешифр: "+ (myChaoticEncDecGrayImg.deCryptImg.getRGB(i,j) & 0xff)+"  оригин: "+(myChaoticEncDecGrayImg.origImg.getRGB(i,j) & 0xff));
-            }
-        }
-        */
+        long endTimeMiliseconds = Calendar.getInstance().getTime().getTime();
+        labelDecryptTime.setText("Время шифрования: " + (endTimeMiliseconds-startTimeMiliseconds) / 1000 + "сек.");
     }
 
     @FXML
     void onEncryptBtnClick(ActionEvent event) {
+        long startTimeMiliseconds = Calendar.getInstance().getTime().getTime();
+
         myChaoticEncDecGrayImg.cryptImg = new BufferedImage(myChaoticEncDecGrayImg.origImg.getColorModel(),
                 myChaoticEncDecGrayImg.origImg.copyData(null), myChaoticEncDecGrayImg.origImg.getColorModel().isAlphaPremultiplied(), null);
-
-        //System.out.println("  cryptImg: "+(myChaoticEncDecImg.origImg.getRGB(19,13)& 0xff)+"  origImg: "+(myChaoticEncDecImg.origImg.getRGB(19,13)& 0xff));
 
         myChaoticEncDecGrayImg.encrypt();
         imgCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecGrayImg.cryptImg, null ));
         imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecGrayImg.deCryptImg, null ));
+        analysisBtn.setDisable(true);
 
-        //onDecryptionBtnClick(new ActionEvent());
-        analysisBtn.setDisable(false);
+        long endTimeMiliseconds = Calendar.getInstance().getTime().getTime();
+        labelEncryptTime.setText("Время шифрования: " + (endTimeMiliseconds-startTimeMiliseconds) / 1000 + " сек.");
+
     }
 
     public void selectDefaultImg(){

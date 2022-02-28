@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ControllerCryptColorImg {
 
@@ -55,6 +56,12 @@ public class ControllerCryptColorImg {
 
     @FXML
     private Button toSettings;
+
+    @FXML
+    private Label labelDecryptTime;
+
+    @FXML
+    private Label labelEncryptTime;
 
     @FXML
     private void onChooseImgClick(ActionEvent event) throws Exception {
@@ -101,16 +108,26 @@ public class ControllerCryptColorImg {
     @FXML
     void onDecryptionBtnClick(ActionEvent event) {
 
+        long startTimeMiliseconds = Calendar.getInstance().getTime().getTime();
+
         myChaoticEncDecColorImg.decrypt();
         imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecColorImg.deCryptImg, null ));
 
+        long endTimeMiliseconds = Calendar.getInstance().getTime().getTime();
+        labelDecryptTime.setText("Время шифрования: " + (endTimeMiliseconds-startTimeMiliseconds) / 1000 + "сек.");
     }
 
     @FXML
     void onEncryptBtnClick(ActionEvent event) {
+
+        long startTimeMiliseconds = Calendar.getInstance().getTime().getTime();
+
         myChaoticEncDecColorImg.encrypt();
         imgCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecColorImg.cryptImg, null ));
         imgDeCryptView.setImage(SwingFXUtils.toFXImage(myChaoticEncDecColorImg.deCryptImg, null ));
+
+        long endTimeMiliseconds = Calendar.getInstance().getTime().getTime();
+        labelEncryptTime.setText("Время шифрования: " + (endTimeMiliseconds-startTimeMiliseconds) / 1000 + "сек.");
 
         analysisBtn.setDisable(false);
     }

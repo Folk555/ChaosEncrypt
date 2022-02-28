@@ -21,7 +21,6 @@ public class ChaoticEncDecText {
     private int alphabetSize;
     int fromX = -10, fromY = 1; // задаем пиксель который надо отследить.
 
-
     //Константы для нормирования
     public static final int NORM_OF_SQUARE = 0;
     public static final int NORM_OF_CHAR = 1;
